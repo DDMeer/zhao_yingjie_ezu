@@ -58,20 +58,47 @@ class CourseList(View):
             {'course_list': Course.objects.all()}
         )
 
-def semester_list_view(request):
-    semester_list = Semester.objects.all()
-    # semester_list = Semester.objects.none()
-    return render(request, 'courseinfo/semester_list.html', {'semester_list': semester_list})
+# def semester_list_view(request):
+#     semester_list = Semester.objects.all()
+#     # semester_list = Semester.objects.none()
+#     return render(request, 'courseinfo/semester_list.html', {'semester_list': semester_list})
+class SemesterList(View):
+
+    def get(self, request):
+        return render(
+            request,
+            'courseinfo/semester_list.html',
+            {'course_list': Semester.objects.all()}
+        )
 
 
 
-def student_list_view(request):
-    student_list = Student.objects.all()
-    # student_list = Student.objects.none()
-    return render(request, 'courseinfo/student_list.html', {'student_list': student_list})
+# def student_list_view(request):
+#     student_list = Student.objects.all()
+#     # student_list = Student.objects.none()
+#     return render(request, 'courseinfo/student_list.html', {'student_list': student_list})
 
 
-def registration_list_view(request):
-    registration_list = Registration.objects.all()
-    # registration_list = Registration.objects.none()
-    return render(request, 'courseinfo/registration_list.html', {'registration_list': registration_list})
+class StudentList(View):
+
+    def get(self, request):
+        return render(
+            request,
+            'courseinfo/student_list.html',
+            {'course_list': Student.objects.all()}
+        )
+
+# def registration_list_view(request):
+#     registration_list = Registration.objects.all()
+#     # registration_list = Registration.objects.none()
+#     return render(request, 'courseinfo/registration_list.html', {'registration_list': registration_list})
+
+
+class RegistrationList(View):
+
+    def get(self, request):
+        return render(
+            request,
+            'courseinfo/registration_list.html',
+            {'course_list': Registration.objects.all()}
+        )
