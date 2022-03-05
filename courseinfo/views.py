@@ -42,12 +42,21 @@ class SectionList(View):
         )
 
 
+#
+# def course_list_view(request):
+#     # course_list = Course.objects.all()
+#     course_list = Course.objects.none()
+#     return render(request, 'courseinfo/course_list.html', {'course_list': course_list})
 
-def course_list_view(request):
-    # course_list = Course.objects.all()
-    course_list = Course.objects.none()
-    return render(request, 'courseinfo/course_list.html', {'course_list': course_list})
 
+class CourseList(View):
+
+    def get(self, request):
+        return render(
+            request,
+            'courseinfo/course_list.html',
+            {'course_list': Course.objects.all()}
+        )
 
 def semester_list_view(request):
     semester_list = Semester.objects.all()
