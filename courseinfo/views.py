@@ -34,7 +34,7 @@ class InstructorDetail(View):
             Instructor,
             pk=pk
         )
-        section_list = instructor.section.all()
+        section_list = instructor.sections.all()
         return render(
             request,
             'courseinfo/instructor_detail.html',
@@ -55,6 +55,28 @@ class SectionList(View):
             request,
             'courseinfo/section_list.html',
             {'section_list': Section.objects.all()}
+        )
+
+
+class SectionDetail(View):
+
+    def get(self, request, pk):
+        section = get_object_or_404(
+            Section,
+            pk=pk
+        )
+        semester = section.semester
+        course = section.course
+        instructor = section.instructor
+        registration_list = section.registrations
+        return render(
+            request,
+            'curseinfo/section_detail.html',
+            {'section': section,
+             'semester': semester,
+             'course': course,
+             'instructor': instructor,
+             'registration_list': registration_list}
         )
 
 

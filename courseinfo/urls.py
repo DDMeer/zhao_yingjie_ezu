@@ -13,12 +13,16 @@ from courseinfo.views import (
     SemesterList,
     StudentList,
     RegistrationList,
+    InstructorDetail,
 )
 
 urlpatterns = [
     # path('instructor/', instructor_list_view),
 
     path('instructor/', InstructorList.as_view(), name='courseinfo_instructor_list_urpattern'),
+    path('instructor/<int:pk>/',
+         InstructorDetail.as_view(),
+         name='courseinfo_instructor_detail_urlpattern'),
     # path('section/', section_list_view),
     path('section/', SectionList.as_view(), name='courseinfo_section_list_urpattern'),
     # path('course/', course_list_view),
