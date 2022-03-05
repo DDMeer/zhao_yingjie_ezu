@@ -68,10 +68,10 @@ class SectionDetail(View):
         semester = section.semester
         course = section.course
         instructor = section.instructor
-        registration_list = section.registrations
+        registration_list = section.registrations.all()
         return render(
             request,
-            'curseinfo/section_detail.html',
+            'courseinfo/section_detail.html',
             {'section': section,
              'semester': semester,
              'course': course,
