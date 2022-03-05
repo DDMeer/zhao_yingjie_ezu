@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import View
 
 from courseinfo.models import (
@@ -25,6 +25,22 @@ class InstructorList(View):
             'courseinfo/instructor_list.html',
             {'instructor_list': Instructor.objects.all()}
         )
+
+
+class InstructorDetail(View):
+
+    def get(self, request, pk):
+        instructor = get_object_or_404(
+            Instructor,
+            pk=pk
+        )
+        section_list = instructor.section.all()
+        return render(
+            request,
+            'courseinfo/instructor_detail.html',
+            {'instructor': instructor, 'section_list': section_list}
+        )
+
 
 # def section_list_view(request):
 #     # section_list = Section.objects.all()
@@ -68,7 +84,7 @@ class SemesterList(View):
         return render(
             request,
             'courseinfo/semester_list.html',
-            {'course_list': Semester.objects.all()}
+            {'semester_list': Semester.objects.all()}
         )
 
 
@@ -85,7 +101,7 @@ class StudentList(View):
         return render(
             request,
             'courseinfo/student_list.html',
-            {'course_list': Student.objects.all()}
+            {'student_list': Student.objects.all()}
         )
 
 # def registration_list_view(request):
@@ -100,5 +116,5 @@ class RegistrationList(View):
         return render(
             request,
             'courseinfo/registration_list.html',
-            {'course_list': Registration.objects.all()}
+            {'registration_list': Registration.objects.all()}
         )
