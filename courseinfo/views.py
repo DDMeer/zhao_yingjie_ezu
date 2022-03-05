@@ -26,10 +26,21 @@ class InstructorList(View):
             {'instructor_list': Instructor.objects.all()}
         )
 
-def section_list_view(request):
-    # section_list = Section.objects.all()
-    section_list = Section.objects.none()
-    return render(request, 'courseinfo/section_list.html', {'section_list': section_list})
+# def section_list_view(request):
+#     # section_list = Section.objects.all()
+#     section_list = Section.objects.none()
+#     return render(request, 'courseinfo/section_list.html', {'section_list': section_list})
+
+
+class SectionList(View):
+
+    def get(self, request):
+        return render(
+            request,
+            'courseinfo/section_list.html',
+            {'section_list': Section.objects.all()}
+        )
+
 
 
 def course_list_view(request):
