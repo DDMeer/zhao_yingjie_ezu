@@ -96,6 +96,24 @@ class CourseList(View):
             {'course_list': Course.objects.all()}
         )
 
+
+class CourseDetail(View):
+
+    def get(self, request, pk):
+        course = get_object_or_404(
+            Course,
+            pk=pk
+        )
+        section_list = course.sections.all()
+        return render(
+            request,
+            'courseinfo/course_detail.html',
+            {'course': course, 'section_list': section_list}
+        )
+
+
+
+
 # def semester_list_view(request):
 #     semester_list = Semester.objects.all()
 #     # semester_list = Semester.objects.none()
@@ -160,7 +178,6 @@ class StudentDetail(View):
 
 
 
-
 class RegistrationList(View):
 
     def get(self, request):
@@ -169,3 +186,24 @@ class RegistrationList(View):
             'courseinfo/registration_list.html',
             {'registration_list': Registration.objects.all()}
         )
+
+
+class RegistrationDetail(View):
+
+    def get(self, request, pk):
+        section = get_object_or_404(
+            Registration,
+            pk=pk
+        )
+        student = get_object_or_404(
+            Registration,
+            pk=pk
+        )
+        return render(
+            request,
+            'courseinfo/registration_detail.html',
+            {'section': section, 'student': student}
+        )
+
+
+
