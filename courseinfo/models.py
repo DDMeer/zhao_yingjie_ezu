@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import UniqueConstraint
+from django.urls import reverse
 
 
 class Period(models.Model):
@@ -68,6 +69,13 @@ class Instructor(models.Model):
         else:
             result = '%s, %s (%s)' % (self.last_name, self.first_name, self.disambiguator)
         return result
+
+
+    def get_absolute_url(self):
+        return reverse('courseinfo_instructor_detail_urlpattern',
+                       kwargs={'pk': self.pk})
+
+
 
     class Meta:
         ordering = ['last_name', 'first_name', 'disambiguator']
