@@ -181,6 +181,42 @@ class CourseCreate(ObjectCreateMixin, View):
     form_class = CourseForm
     template_name = 'courseinfo/course_form.html'
 
+class CourseUpdate(View):
+    form_class = CourseForm
+    model = Course
+    template_name = 'courseinfo/course_form_update.html'
+
+    def get_object(self, pk):
+        return get_object_or_404(
+            self.model,
+            pk=pk)
+
+    def get(self, request, pk):
+        course = self.get_object(pk)
+        context = {
+            'form': self.form_class(
+                instance=course),
+            'course': course,
+        }
+        return render(
+            request, self.template_name, context)
+
+    def post(self, request, pk):
+        course = self.get_object(pk)
+        bound_form = self.form_class(
+            request.POST, instance=course)
+        if bound_form.is_valid():
+            new_course = bound_form.save()
+            return redirect(new_course)
+        else:
+            context = {
+                'form': bound_form,
+                'course': course,
+            }
+            return render(
+                request,
+                self.template_name,
+                context)
 
 
 # def semester_list_view(request):
