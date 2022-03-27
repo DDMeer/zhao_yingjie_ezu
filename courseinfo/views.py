@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 
-from courseinfo.forms import InstructorForm, SectionForm, CourseForm
+from courseinfo.forms import InstructorForm, SectionForm, CourseForm, SemesterForm
 from courseinfo.models import (
     Instructor,
     Section,
@@ -138,11 +138,10 @@ class SemesterDetail(View):
             {'semester': semester, 'section_list': section_list}
         )
 
+class SemesterCreate(ObjectCreateMixin, View):
+    form_class = SemesterForm
+    template_name = 'courseinfo/semester_form.html'
 
-# def student_list_view(request):
-#     student_list = Student.objects.all()
-#     # student_list = Student.objects.none()
-#     return render(request, 'courseinfo/student_list.html', {'student_list': student_list})
 
 
 class StudentList(View):

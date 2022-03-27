@@ -1,6 +1,6 @@
 from django import forms
 
-from courseinfo.models import Instructor, Section, Course
+from courseinfo.models import Instructor, Section, Course, Semester
 
 
 class InstructorForm(forms.ModelForm):
@@ -43,3 +43,15 @@ class CourseForm(forms.ModelForm):
     def clean_course_name(self):
         return self.cleaned_data['course_name'].strip()
 
+
+
+class SemesterForm(forms.ModelForm):
+    class Meta:
+        model = Semester
+        fields = '__all__'
+
+    def clean_year(self):
+        return self.cleaned_data['year'].strip()
+
+    def clean_period(self):
+        return self.cleaned_data['period'].strip()
