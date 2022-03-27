@@ -96,6 +96,10 @@ class Instructor(models.Model):
         return reverse('courseinfo_instructor_update_urlpattern',
                        kwargs={'pk': self.pk})
 
+    def get_delete_url(self):
+        return reverse('courseinfo_instructor_delete_urlpattern',
+                       kwargs={'pk':self.pk})
+
     class Meta:
         ordering = ['last_name', 'first_name', 'disambiguator']
         constraints = [
@@ -153,6 +157,10 @@ class Section(models.Model):
     def get_update_url(self):
         return reverse('courseinfo_section_update_urlpattern',
                        kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('courseinfo_section_delete_urlpattern',
+                       kwargs={'pk':self.pk})
     class Meta:
         ordering = ['course', 'section_name', 'semester']
         constraints = [
@@ -176,6 +184,10 @@ class Registration(models.Model):
     def get_update_url(self):
         return reverse('courseinfo_registration_update_urlpattern',
                        kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('courseinfo_registration_delete_urlpattern',
+                       kwargs={'pk':self.pk})
     class Meta:
         ordering = ['section', 'student']
         constraints = [
