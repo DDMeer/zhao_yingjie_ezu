@@ -51,10 +51,14 @@ class SemesterForm(forms.ModelForm):
         fields = '__all__'
 
     def clean_year(self):
-        return self.cleaned_data['year'].strip()
+        # return self.cleaned_data['year'].strip()
+
+        return self.cleaned_data['year']
 
     def clean_period(self):
-        return self.cleaned_data['period'].strip()
+        # return self.cleaned_data['period'].strip()
+
+        return self.cleaned_data['period']
 
 
 class StudentForm(forms.ModelForm):

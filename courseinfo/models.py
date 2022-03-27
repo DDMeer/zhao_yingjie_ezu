@@ -40,6 +40,9 @@ class Semester(models.Model):
                        kwargs={'pk':self.pk}
                        )
 
+    def get_update_url(self):
+        return reverse('courseinfo_semester_update_urlpattern',
+                       kwargs={'pk': self.pk})
     class Meta:
         ordering = ['year__year', 'period__period_sequence']
         constraints = [
@@ -119,6 +122,11 @@ class Student(models.Model):
         return reverse('courseinfo_student_detail_urlpattern',
                        kwargs={'pk':self.pk}
                        )
+
+    def get_update_url(self):
+        return reverse('courseinfo_student_update_urlpattern',
+                       kwargs={'pk': self.pk})
+
     class Meta:
         ordering = ['last_name', 'first_name', 'disambiguator']
         constraints = [
@@ -165,7 +173,9 @@ class Registration(models.Model):
         return reverse('courseinfo_registration_detail_urlpattern',
                        kwargs={'pk':self.pk}
                        )
-
+    def get_update_url(self):
+        return reverse('courseinfo_registration_update_urlpattern',
+                       kwargs={'pk': self.pk})
     class Meta:
         ordering = ['section', 'student']
         constraints = [
