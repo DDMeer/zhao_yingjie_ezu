@@ -65,6 +65,9 @@ class Course(models.Model):
         return reverse('courseinfo_course_update_urlpattern',
                        kwargs={'pk': self.pk})
 
+    def get_delete_url(self):
+        return reverse('courseinfo_course_delete_urlpattern',
+                       kwargs={'pk':self.pk})
     class Meta:
         ordering = ['course_number', 'course_name']
         constraints = [

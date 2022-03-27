@@ -280,6 +280,37 @@ class CourseUpdate(View):
                 self.template_name,
                 context)
 
+class CourseDelete(View):
+
+    def get(self, request, pk):
+        course = self.get_object(pk)
+        sections = course.sections.all()
+        if sections.count() > 0:
+            return render(
+                request,
+                'courseinfo/course_refuse_delete.html',
+                {'course': course,
+                 'sections': sections,
+                 }
+            )
+        else:
+            return render(
+                request,
+                'courseinfo/course_confirm_delete.html',
+                {'course': course}
+            )
+
+    def get_object(self, pk):
+        return get_object_or_404(
+            Course,
+            pk=pk)
+
+    def post(self, request, pk):
+        course = self.get_object(pk)
+        course.delete()
+        return redirect('courseinfo_course_list_urlpattern')
+
+
 
 # def semester_list_view(request):
 #     semester_list = Semester.objects.all()
