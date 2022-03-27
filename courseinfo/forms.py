@@ -1,6 +1,6 @@
 from django import forms
 
-from courseinfo.models import Instructor, Section, Course, Semester, Student
+from courseinfo.models import Instructor, Section, Course, Semester, Student, Registration
 
 
 class InstructorForm(forms.ModelForm):
@@ -74,3 +74,17 @@ class StudentForm(forms.ModelForm):
         else:
             result = self.cleaned_data['disambiguator'].strip()
         return result
+
+
+class RegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Registration
+        fields = '__all__'
+
+    def clean_student(self):
+        return self.cleaned_data['student'].strip()
+
+    def clean_section(self):
+        return self.cleaned_data['section'].strip()
+
+

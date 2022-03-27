@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 
-from courseinfo.forms import InstructorForm, SectionForm, CourseForm, SemesterForm, StudentForm
+from courseinfo.forms import InstructorForm, SectionForm, CourseForm, SemesterForm, StudentForm, RegistrationForm
 from courseinfo.models import (
     Instructor,
     Section,
@@ -201,6 +201,9 @@ class RegistrationDetail(View):
             'courseinfo/registration_detail.html',
             {'section': section, 'student': student}
         )
+class RegistrationCreate(ObjectCreateMixin, View):
+    form_class = RegistrationForm
+    template_name = 'courseinfo/registration_form.html'
 
 
 
