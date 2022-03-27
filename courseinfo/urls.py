@@ -28,7 +28,9 @@ from courseinfo.views import (
     RegistrationDelete,
     InstructorDelete,
     SectionDelete,
-    CourseDelete
+    CourseDelete,
+    SemesterDelete,
+    StudentDelete
 )
 
 urlpatterns = [
@@ -101,6 +103,9 @@ urlpatterns = [
     path('semester/<int:pk>/update/',
          SemesterUpdate.as_view(),
          name='courseinfo_semester_update_urlpattern'),
+    path('semester/<int:pk>/delete/',
+         SemesterDelete.as_view(),
+         name='courseinfo_semester_delete_urlpattern'),
 
 
 
@@ -115,6 +120,10 @@ urlpatterns = [
     path('student/<int:pk>/update/',
          StudentUpdate.as_view(),
          name='courseinfo_student_update_urlpattern'),
+    path('student/<int:pk>/delete/',
+         StudentDelete.as_view(),
+         name='courseinfo_student_delete_urlpattern'),
+
 
     path('registration/',
          RegistrationList.as_view(), name='courseinfo_registration_list_urlpattern'),

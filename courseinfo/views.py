@@ -381,6 +381,36 @@ class SemesterUpdate(View):
                 self.template_name,
                 context)
 
+class SemesterDelete(View):
+
+    def get(self, request, pk):
+        semester = self.get_object(pk)
+        sections = semester.sections.all()
+        if sections.count() > 0:
+            return render(
+                request,
+                'courseinfo/semester_refuse_delete.html',
+                {'semester': semester,
+                 'sections': sections,
+                 }
+            )
+        else:
+            return render(
+                request,
+                'courseinfo/semester_confirm_delete.html',
+                {'semester': semester}
+            )
+
+    def get_object(self, pk):
+        return get_object_or_404(
+            Semester,
+            pk=pk)
+
+    def post(self, request, pk):
+        semester = self.get_object(pk)
+        semester.delete()
+        return redirect('courseinfo_semester_list_urlpattern')
+
 
 class StudentList(View):
 
@@ -447,6 +477,37 @@ class StudentUpdate(View):
                 request,
                 self.template_name,
                 context)
+
+class StudentDelete(View):
+
+    def get(self, request, pk):
+        student = self.get_object(pk)
+        registrations = student.registrations.all()
+        if registrations.count() > 0:
+            return render(
+                request,
+                'courseinfo/student_refuse_delete.html',
+                {'student': student,
+                 'registrations': registrations,
+                 }
+            )
+        else:
+            return render(
+                request,
+                'courseinfo/student_confirm_delete.html',
+                {'student': student}
+            )
+
+    def get_object(self, pk):
+        return get_object_or_404(
+            Student,
+            pk=pk)
+
+    def post(self, request, pk):
+        student = self.get_object(pk)
+        student.delete()
+        return redirect('courseinfo_student_list_urlpattern')
+
 
 
 class RegistrationList(View):
