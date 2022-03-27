@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 
+from courseinfo.forms import InstructorForm, SectionForm, CourseForm
 from courseinfo.models import (
     Instructor,
     Section,
@@ -8,14 +9,9 @@ from courseinfo.models import (
     Semester,
     Student,
     Registration,
-
 )
+from courseinfo.utils import ObjectCreateMixin
 
-
-# def instructor_list_view(request):
-#     # instructor_list = Instructor.objects.all()
-#     instructor_list = Instructor.objects.none()
-#     return render(request, 'courseinfo/instructor_list.html', {'instructor_list': instructor_list})
 
 class InstructorList(View):
 
@@ -42,10 +38,11 @@ class InstructorDetail(View):
         )
 
 
-# def section_list_view(request):
-#     # section_list = Section.objects.all()
-#     section_list = Section.objects.none()
-#     return render(request, 'courseinfo/section_list.html', {'section_list': section_list})
+class InstructorCreate(ObjectCreateMixin, View):
+    form_class = InstructorForm
+    template_name = 'courseinfo/instructor_form.html'
+
+
 
 
 class SectionList(View):
@@ -79,12 +76,9 @@ class SectionDetail(View):
              'registration_list': registration_list}
         )
 
-
-#
-# def course_list_view(request):
-#     # course_list = Course.objects.all()
-#     course_list = Course.objects.none()
-#     return render(request, 'courseinfo/course_list.html', {'course_list': course_list})
+class SectionCreate(ObjectCreateMixin, View):
+    form_class = SectionForm
+    template_name = 'courseinfo/section_form.html'
 
 
 class CourseList(View):
@@ -110,7 +104,9 @@ class CourseDetail(View):
             'courseinfo/course_detail.html',
             {'course': course, 'section_list': section_list}
         )
-
+class CourseCreate(ObjectCreateMixin, View):
+    form_class = CourseForm
+    template_name = 'courseinfo/course_form.html'
 
 
 
