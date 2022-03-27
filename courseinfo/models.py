@@ -87,7 +87,9 @@ class Instructor(models.Model):
         return reverse('courseinfo_instructor_detail_urlpattern',
                        kwargs={'pk': self.pk})
 
-
+    def get_update_url(self):
+        return reverse('courseinfo_instructor_update_urlpattern',
+                       kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['last_name', 'first_name', 'disambiguator']
@@ -138,7 +140,9 @@ class Section(models.Model):
                        kwargs={'pk':self.pk}
                        )
 
-
+    def get_update_url(self):
+        return reverse('courseinfo_section_update_urlpattern',
+                       kwargs={'pk': self.pk})
     class Meta:
         ordering = ['course', 'section_name', 'semester']
         constraints = [
