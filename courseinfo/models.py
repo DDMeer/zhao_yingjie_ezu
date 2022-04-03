@@ -40,13 +40,18 @@ class Semester(models.Model):
                        kwargs={'pk':self.pk}
                        )
 
+
     def get_update_url(self):
         return reverse('courseinfo_semester_update_urlpattern',
                        kwargs={'pk': self.pk})
 
+
     def get_delete_url(self):
         return reverse('courseinfo_semester_delete_urlpattern',
                        kwargs={'pk':self.pk})
+
+
+
     class Meta:
         ordering = ['year__year', 'period__period_sequence']
         constraints = [
@@ -120,6 +125,7 @@ class Student(models.Model):
     last_name = models.CharField(max_length=45)
     disambiguator = models.CharField(max_length=45, blank=True, default='')
 
+
     def __str__(self):
         result = ''
         if self.disambiguator == '':
@@ -127,7 +133,6 @@ class Student(models.Model):
         else:
             result = '%s, %s (%s)' % (self.last_name, self.first_name, self.disambiguator)
         return result
-
 
     def get_absolute_url(self):
         return reverse('courseinfo_student_detail_urlpattern',
