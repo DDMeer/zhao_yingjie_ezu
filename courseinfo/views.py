@@ -107,26 +107,7 @@ class SectionList(ListView):
 
 
 
-class SectionDetail(View):
 
-    def get(self, request, pk):
-        section = get_object_or_404(
-            Section,
-            pk=pk
-        )
-        semester = section.semester
-        course = section.course
-        instructor = section.instructor
-        registration_list = section.registrations.all()
-        return render(
-            request,
-            'courseinfo/section_detail.html',
-            {'section': section,
-             'semester': semester,
-             'course': course,
-             'instructor': instructor,
-             'registration_list': registration_list}
-        )
 
 class SectionDetail(DetailView):
     model = Section
@@ -224,19 +205,20 @@ class CourseList(ListView):
 
 
 
-class CourseDetail(View):
 
-    def get(self, request, pk):
-        course = get_object_or_404(
-            Course,
-            pk=pk
-        )
+
+
+class CourseDetail(DetailView):
+    model = Course
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        course = self.get_object()
         section_list = course.sections.all()
-        return render(
-            request,
-            'courseinfo/course_detail.html',
-            {'course': course, 'section_list': section_list}
-        )
+        context['section_list'] = section_list
+        return context
+
+
 class CourseCreate(ObjectCreateMixin, View):
     form_class = CourseForm
     template_name = 'courseinfo/course_form.html'
