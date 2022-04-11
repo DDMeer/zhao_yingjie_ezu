@@ -107,26 +107,26 @@ class SectionList(ListView):
 
 
 
-# class SectionDetail(View):
-#
-#     def get(self, request, pk):
-#         section = get_object_or_404(
-#             Section,
-#             pk=pk
-#         )
-#         semester = section.semester
-#         course = section.course
-#         instructor = section.instructor
-#         registration_list = section.registrations.all()
-#         return render(
-#             request,
-#             'courseinfo/section_detail.html',
-#             {'section': section,
-#              'semester': semester,
-#              'course': course,
-#              'instructor': instructor,
-#              'registration_list': registration_list}
-#         )
+class SectionDetail(View):
+
+    def get(self, request, pk):
+        section = get_object_or_404(
+            Section,
+            pk=pk
+        )
+        semester = section.semester
+        course = section.course
+        instructor = section.instructor
+        registration_list = section.registrations.all()
+        return render(
+            request,
+            'courseinfo/section_detail.html',
+            {'section': section,
+             'semester': semester,
+             'course': course,
+             'instructor': instructor,
+             'registration_list': registration_list}
+        )
 
 class SectionDetail(DetailView):
     model = Section
@@ -137,7 +137,7 @@ class SectionDetail(DetailView):
         semester = section.semester
         course = section.course
         instructor = section.instructor
-        registration_list = section.registration.all()
+        registration_list = section.registrations.all()
         context['semester'] = semester
         context['course'] = course
         context['instructor'] = instructor
