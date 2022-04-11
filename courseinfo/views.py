@@ -296,20 +296,17 @@ class SemesterList(ListView):
 
 
 
-class SemesterDetail(View):
 
-    def get(self, request, pk):
-        semester = get_object_or_404(
-            Semester,
-            pk=pk
-        )
+
+class SemesterDetail(DetailView):
+    model = Semester
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        semester = self.get_object()
         section_list = semester.sections.all()
-        return render(
-            request,
-            'courseinfo/semester_detail.html',
-            {'semester': semester, 'section_list': section_list}
-        )
-
+        context['section_list'] = section_list
+        return context
 
 
 class SemesterCreate(ObjectCreateMixin, View):
@@ -390,19 +387,30 @@ class StudentList(PageLinksMixin, ListView):
     paginate_by = 25
     model = Student
 
-class StudentDetail(View):
 
-    def get(self, request, pk):
-        student = get_object_or_404(
-            Student,
-            pk=pk
-        )
+
+
+
+
+
+
+
+class StudentDetail(DetailView):
+    model = Student
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        student = self.get_object()
         registration_list = student.registrations.all()
-        return render(
-            request,
-            'courseinfo/student_detail.html',
-            {'student': student, 'registration_list': registration_list}
-        )
+        context['registration_list'] = registration_list
+        return context
+
+
+
+
+
+
+
 class StudentCreate(ObjectCreateMixin, View):
     form_class = StudentForm
     template_name = 'courseinfo/student_form.html'
@@ -478,22 +486,19 @@ class RegistrationList(ListView):
 
 
 
-class RegistrationDetail(View):
+class RegistrationDetail(DetailView):
+    model = Registration
 
-    def get(self, request, pk):
-        registration = get_object_or_404(
-            Registration,
-            pk=pk
-        )
-        # student = get_object_or_404(
-        #     Registration,
-        #     pk=pk
-        # )
-        return render(
-            request,
-            'courseinfo/registration_detail.html',
-            {'registration': registration, 'student': registration.student, 'section': registration.section}
-        )
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        registration = self.get_object()
+        student = registration.student
+        section = registration.section
+        context['student'] = student
+        context['section'] = section
+        return context
+
+
 class RegistrationCreate(ObjectCreateMixin, View):
     form_class = RegistrationForm
     template_name = 'courseinfo/registration_form.html'
