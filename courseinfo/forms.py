@@ -85,10 +85,10 @@ class RegistrationForm(forms.ModelForm):
         model = Registration
         fields = '__all__'
 
-    def clean_student(self):
-        return self.cleaned_data['student'].strip()
-
-    def clean_section(self):
-        return self.cleaned_data['section'].strip()
+    # def clean_student(self):
+    #     return self.cleaned_data['student'].strip()
+    #
+    # def clean_section(self):
+    #     return self.cleaned_data['section'].strip()
 
 
