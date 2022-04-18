@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -126,3 +128,7 @@ LOGIN_REDIRECT_URL = 'about_urlpattern'
 LOGOUT_REDIRECT_URL = 'login_urlpattern'
 
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = reverse_lazy('login_urlpattern')
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
