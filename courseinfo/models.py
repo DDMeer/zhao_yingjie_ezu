@@ -32,31 +32,29 @@ class Semester(models.Model):
     period = models.ForeignKey(Period, related_name='semesters', on_delete=models.PROTECT)
 
     def __str__(self):
-        return '%s - %s' %(self.year.year, self.period.period_name)
-
+        return '%s - %s' % (self.year.year, self.period.period_name)
 
     def get_absolute_url(self):
         return reverse('courseinfo_semester_detail_urlpattern',
-                       kwargs={'pk':self.pk}
+                       kwargs={'pk': self.pk}
                        )
-
 
     def get_update_url(self):
         return reverse('courseinfo_semester_update_urlpattern',
-                       kwargs={'pk': self.pk})
-
+                       kwargs={'pk': self.pk}
+                       )
 
     def get_delete_url(self):
         return reverse('courseinfo_semester_delete_urlpattern',
-                       kwargs={'pk':self.pk})
-
-
+                       kwargs={'pk': self.pk}
+                       )
 
     class Meta:
         ordering = ['year__year', 'period__period_sequence']
         constraints = [
             UniqueConstraint(fields=['year', 'period'], name='unique_semester')
         ]
+
 
 class Course(models.Model):
     course_id = models.AutoField(primary_key=True)
@@ -68,21 +66,24 @@ class Course(models.Model):
 
     def get_absolute_url(self):
         return reverse('courseinfo_course_detail_urlpattern',
-                       kwargs={'pk':self.pk}
+                       kwargs={'pk': self.pk}
                        )
+
     def get_update_url(self):
         return reverse('courseinfo_course_update_urlpattern',
-                       kwargs={'pk': self.pk})
+                       kwargs={'pk': self.pk}
+                       )
 
     def get_delete_url(self):
         return reverse('courseinfo_course_delete_urlpattern',
-                       kwargs={'pk':self.pk})
+                       kwargs={'pk': self.pk}
+                       )
+
     class Meta:
         ordering = ['course_number', 'course_name']
         constraints = [
             UniqueConstraint(fields=['course_number', 'course_name'], name='unique_course')
         ]
-
 
 
 class Instructor(models.Model):
@@ -99,18 +100,21 @@ class Instructor(models.Model):
             result = '%s, %s (%s)' % (self.last_name, self.first_name, self.disambiguator)
         return result
 
-
     def get_absolute_url(self):
         return reverse('courseinfo_instructor_detail_urlpattern',
-                       kwargs={'pk': self.pk})
+                       kwargs={'pk': self.pk}
+                       )
 
     def get_update_url(self):
         return reverse('courseinfo_instructor_update_urlpattern',
-                       kwargs={'pk': self.pk})
+                       kwargs={'pk': self.pk}
+                       )
 
     def get_delete_url(self):
-        return reverse('courseinfo_instructor_delete_urlpattern',
-                       kwargs={'pk':self.pk})
+        return reverse(
+            'courseinfo_instructor_delete_urlpattern',
+            kwargs={'pk': self.pk}
+        )
 
     class Meta:
         ordering = ['last_name', 'first_name', 'disambiguator']
@@ -119,12 +123,12 @@ class Instructor(models.Model):
                              name='unique_instructor')
         ]
 
+
 class Student(models.Model):
     student_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
     disambiguator = models.CharField(max_length=45, blank=True, default='')
-
 
     def __str__(self):
         result = ''
@@ -136,16 +140,19 @@ class Student(models.Model):
 
     def get_absolute_url(self):
         return reverse('courseinfo_student_detail_urlpattern',
-                       kwargs={'pk':self.pk}
+                       kwargs={'pk': self.pk}
                        )
 
     def get_update_url(self):
         return reverse('courseinfo_student_update_urlpattern',
-                       kwargs={'pk': self.pk})
+                       kwargs={'pk': self.pk}
+                       )
 
     def get_delete_url(self):
         return reverse('courseinfo_student_delete_urlpattern',
-                       kwargs={'pk':self.pk})
+                       kwargs={'pk': self.pk}
+                       )
+
     class Meta:
         ordering = ['last_name', 'first_name', 'disambiguator']
         constraints = [
@@ -166,16 +173,20 @@ class Section(models.Model):
 
     def get_absolute_url(self):
         return reverse('courseinfo_section_detail_urlpattern',
-                       kwargs={'pk':self.pk}
+                       kwargs={'pk': self.pk}
                        )
 
     def get_update_url(self):
         return reverse('courseinfo_section_update_urlpattern',
-                       kwargs={'pk': self.pk})
+                       kwargs={'pk': self.pk}
+                       )
 
     def get_delete_url(self):
-        return reverse('courseinfo_section_delete_urlpattern',
-                       kwargs={'pk':self.pk})
+        return reverse(
+            'courseinfo_section_delete_urlpattern',
+            kwargs={'pk': self.pk}
+        )
+
     class Meta:
         ordering = ['course', 'section_name', 'semester']
         constraints = [
@@ -186,27 +197,30 @@ class Section(models.Model):
 
 class Registration(models.Model):
     registration_id = models.AutoField(primary_key=True)
-    student = models.ForeignKey(Student, related_name='registrations', on_delete=models.PROTECT)
-    section = models.ForeignKey(Section, related_name='registrations', on_delete=models.PROTECT)
+    student = models.ForeignKey(Student, related_name='registrations',  on_delete=models.PROTECT)
+    section = models.ForeignKey(Section, related_name='registrations',  on_delete=models.PROTECT)
 
     def __str__(self):
         return '%s / %s' % (self.section, self.student)
 
     def get_absolute_url(self):
         return reverse('courseinfo_registration_detail_urlpattern',
-                       kwargs={'pk':self.pk}
+                       kwargs={'pk': self.pk}
                        )
+
     def get_update_url(self):
         return reverse('courseinfo_registration_update_urlpattern',
-                       kwargs={'pk': self.pk})
+                       kwargs={'pk': self.pk}
+                       )
 
     def get_delete_url(self):
         return reverse('courseinfo_registration_delete_urlpattern',
-                       kwargs={'pk':self.pk})
+                       kwargs={'pk': self.pk}
+                       )
+
     class Meta:
         ordering = ['section', 'student']
         constraints = [
             UniqueConstraint(fields=['section', 'student'],
                              name='unique_registration')
         ]
-
